@@ -6,6 +6,7 @@ With the use of a forum and id's the different names are displayed.
 Animations are made in css. 
 
 =========================
+
 To start the porject open the index.html there you can fill up dirrefent names for a specific charater.
 change the names of these charters and contince to strat your journey.
 
