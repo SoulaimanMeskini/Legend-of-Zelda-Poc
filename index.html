@@ -1,0 +1,74 @@
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0 " />
+    <meta name="description" content="Copy of Zelda Nes Intro by Soulaiman Meskini." />
+    <meta name="author" content="Soulaiman Meskini" />
+    <title>Soulaiman Meskini - ZELDA INTRO</title>
+    <link rel="icon" type="image/x-icon" href="assets/img/favicon.ico" />
+    <link href="styles.css" rel="stylesheet" />
+
+</head>
+
+
+<body>
+    <div id="loader"></div>
+    <div class="pointer"></div>
+
+    <!-- Start Pagina -->
+    <div class="section-1">
+        <div class="animatie">
+            <p class="text-uppercase"><span class="typed-text"></span><span class="cursor">&nbsp;</span></p>
+        </div>
+
+        <img class="oldMan" src="assets/old man.png" alt="Old Man">
+        <div class="forum">
+            <form action="results.html" method="post" id="form" class="form">
+                <div>
+                    <label for="username">TRAVELER</label>
+                    <input maxlength="10" type="text" value="LINK" id="TRAVELER" name="TRAVELER" placeholder="Enter your name">
+                </div>
+                <div>
+                    <label for="username">PRINCESS</label>
+                    <input maxlength="10" type="text" value="ZELDA" id="ZELDA" name="ZELDA" placeholder="Enter the princes name"><br>
+                </div>
+
+                <div>
+                    <label for="username">PRINCE DARKNESS</label>
+                    <input maxlength="10" type="text" value="GANNON" id="GANNON" name="GANNON" placeholder="Enter the prince darkness name">
+                </div>
+                <br>
+                <button type="submit">START JOURNEY</button>
+                <button type="reset">RESET NAMES</button>
+            </form>
+            <br>
+
+            <script>
+                const form = document.querySelector("#form");
+
+                form.addEventListener("submit", function(event) {
+                    // stop form submission
+                    event.preventDefault();
+
+                    const TRAVELER = document.getElementById("TRAVELER").value;
+                    const ZELDA = document.getElementById("ZELDA").value;
+                    const GANNON = document.getElementById("GANNON").value;
+
+                    console.log(TRAVELER + " " + ZELDA + " " + GANNON);
+
+                    localStorage.setItem("TRAVELER", TRAVELER);
+                    localStorage.setItem("ZELDA", ZELDA);
+                    localStorage.setItem("GANNON", GANNON);
+
+                    window.location.href = '/results.html';
+                });
+            </script>
+
+            <a href="https://www.youtube.com/watch?v=uyMKWJ5e1kg" target="_blank">Watch the original Intro on Youtube</a>
+        </div>
+        <p class="bottom-left">*THIS WEBSITE IS MEANT FOR EDUCATIONAL PURPOSES*</p>
+    </div>
+
+    <!-- Java-->
+    <script src="java/scripts.js"></script>
+    <script src="java/Textanimation.js"></script>
+</body>

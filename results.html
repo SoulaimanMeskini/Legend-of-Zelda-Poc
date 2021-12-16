@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html onclick="StartAnimation()" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Copy of Zelda Nes Intro by Soulaiman Meskini." />
+    <meta name="author" content="Soulaiman Meskini" />
+    <title>Soulaiman Meskini - ZELDA INTRO</title>
+    <link rel="icon" type="image/x-icon" href="assets/img/favicon.ico" />
+    <link href="stylesresults.css" rel="stylesheet" />
+
+</head>
+
+<body>
+
+    <div class="pointer"></div>
+
+    <!-- <embed src="assets/The Legend of Zelda (NES) - Intro (Main Theme).mp3" loop="true" autostart="true" width="2" height="0"> -->
+
+    <div id="container" class="container">
+        <div class="starting">
+            <img src="assets/starting-screen-zelda-edited.gif" alt="">
+            <h3 id="ZELDA" class="css-3d-text"></h3>
+            <button>PUSH START BUTTON</button>
+        </div>
+
+        <div id="filter" class="filter"></div>
+    </div>
+
+    <div id="Textblock" class="wrapper">
+        <h3 id="ZELDA2" style="color:red"></h3>
+        <h2>MANY YEARS AGO PRINCE <br> DARKNESS <span id="GANNON" style="color:red"></span> STOLE <br> ONE OF THE <span style="color:rgb(38, 136, 168)">TRIFOCE</span> WITH <br> POWER. PRINCESS <span style="color:red" id="ZELDA3"></span><br> HAD ONE OF THE
+            <span style="color:rgb(38, 136, 168)">TRIFOCE</span><br> WITH WISDOM. SHE DIVIDED
+            <br> IT INTO <span style="color:rgb(38, 136, 168)">" 8 "</span> UNITS TO HIDE <br> IT FROM <span style="color:red" id="GANNON2"></span> BEFORE <br> SHE WAS CAPTURED.
+            <br> <span style="color:red">GO FIND THE "8" UNITS <br> <span style="color:green" id="TRAVELER"></span> TO SAVE HER.</span>
+        </h2>
+    </div>
+
+    <!-- Java-->
+    <script src="java/scriptsscene.js"></script>
+    <script>
+        function StartAnimation() {
+            document.getElementById("filter").classList.add("AnimateShow");
+            document.getElementById("container").classList.add("RemoveBlock");
+            document.getElementById("Textblock").classList.add("TextBlockShow");
+        }
+    </script>
+</body>
+
+</html>
