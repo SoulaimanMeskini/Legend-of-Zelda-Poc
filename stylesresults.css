@@ -1,5 +1,5 @@
 /* Fonts */
-    
+
 @font-face {
     src: url(fonts/PixelEmulator-xq08.ttf);
     font-family: pixel;
@@ -15,6 +15,11 @@ html, body {
     display: flex;
     justify-content: center;
     align-items: center;
+    user-select: none;
+}
+
+* {
+    user-select: none;
 }
 
 /* Cursor */
@@ -32,10 +37,7 @@ img {
     margin-left: auto;
     margin-right: auto;
     width: 100%;
-}
-
-.scene1 img {
-    z-index: 20;
+    -webkit-user-drag: none;
 }
 
 .scene1 {
@@ -53,16 +55,17 @@ img {
 }
 
 .filter {
-    display: none;
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: rgba(0, 0, 255, 0.7);
-    z-index: 23;
+    display: none; 
+    position: absolute; 
+    width: 100%; 
+    height: 115%; 
+    top: 0; 
+    left: 0; 
+    background-color: rgba(0, 0, 255, 0.7); 
+    z-index: 23; 
 }
+
+
 
 .RemoveBlock, .AnimateShow {
     animation: fadeOut 4s linear 3s forwards;
@@ -77,18 +80,10 @@ img {
     }
 }
 
-.starting {
-    position: relative;
-    text-align: center;
-    color: white;
-    grid-area: overlap;
-    z-index: 20;
-}
-
 .starting h3 {
     margin: 0;
-    top: 26%;
-    left: 50%;
+    top: 30%;
+    left: 52%;
     transform: translate(-50%, -50%);
     position: absolute;
     font-size: 3.5em;
@@ -136,7 +131,9 @@ button {
 /* Scene 2 */
 .scene2 {
     opacity: 0;
-    background-image: url("assets/intro text.png");
+    background-image: url("assets/introtext.png");
+    background-size: contain; 
+    background-repeat: no-repeat;
     width: 700px;
     height: 572px;
     position: absolute;
@@ -197,12 +194,13 @@ button {
 
 .scene2 h2 {
     color: whitesmoke;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    position: relative; 
+    top: 12%; 
+    left: 10%; 
+    transform: none; 
     width: 560px;
     font-size: 20px;
+    text-align: center; 
 }
 
 .scene2 h2 .justified-text {
@@ -295,12 +293,12 @@ button {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: 50px; /* Space it from the grid */
+    margin-top: 50px; 
     text-align: center;
 }
 
 .grid-last img {
-    width: 50px; /* Adjust size as needed */
+    width: 50px; 
     height: 50px;
 }
 
@@ -312,18 +310,38 @@ button {
     letter-spacing: 3px;
 }
 
+/* Default animation for larger screens */
+@keyframes scrollUpScene3 {
+    0% {
+        top: 300%;
+        opacity: 1;
+    }
+    100% {
+        top: -200%;
+        opacity: 1;
+    }
+}
+
 .scene3.scroll-up {
     animation: scrollUpScene3 50s cubic-bezier(0.5, 1, 0.5, 1) forwards;
 }
 
-@keyframes scrollUpScene3 {
+/* Phone-specific animation */
+@keyframes scrollUpScene3Phone {
     0% {
-        top: 250%;
+        top: 500%;
         opacity: 1;
     }
     100% {
-        top: -150%;
+        top: -300%;
         opacity: 1;
+    }
+}
+
+/* Media query for phones */
+@media only screen and (max-width: 768px) {
+    .scene3.scroll-up {
+        animation: scrollUpScene3Phone 50s cubic-bezier(0.5, 1, 0.5, 1) forwards;
     }
 }
 
@@ -333,7 +351,7 @@ button {
     position: absolute;
     z-index: 23;
     left: 50%;
-    top: 100%;
+    top: 50%;
     transform: translate(-50%, -50%);
 }
 
@@ -361,16 +379,104 @@ button {
 
 /* Scroll-up animation for Scene 4 */
 .scene4.scroll-up {
-    animation: scrollUpScene4 30s cubic-bezier(0.5, 1, 0.5, 1) forwards;
+    animation: scrollUpScene4 18s cubic-bezier(0.5, 1, 0.5, 1) forwards;
 }
 
+
+/* Default animation for Scene 4 */
 @keyframes scrollUpScene4 {
     0% {
-        top: 130%;
+        top: 150%;
         opacity: 1;
     }
     100% {
         top: 50%;
         opacity: 1;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .scene4.scroll-up {
+        animation: scrollUpScene4Phone 15s cubic-bezier(0.5, 1, 0.5, 1) forwards;
+    }
+
+/* Phone-specific animation for Scene 4 */
+@keyframes scrollUpScene4Phone {
+    0% {
+        top: 250%;
+        opacity: 1;
+    }
+    100% {
+        top: 50%;
+        opacity: 1;
+    }
+}
+
+/* Media Queries for Responsiveness */
+@media only screen and (max-width: 768px) {
+    .scene1, .scene3, .scene4 {
+        width: 100%;
+        height: auto;
+    }
+    .scene2 { 
+        width: 100%;
+    }
+    .starting h3 {
+        font-size: 2em;
+        top: 25%;
+        left: 52%;
+    }
+
+    .filter {
+        height: 100%;
+    }
+
+    button {
+        font-size: 0.8em;
+    }
+
+    .scene2 h2 {
+        font-size: 10px;
+        width: 85%;
+        top: 5%;
+    }
+    .scene2 h3 {
+        font-size: 13px;
+    }
+
+    .scene3 h2 {
+        font-size: 20px;
+    }
+
+    .grid-container {
+        grid-template-columns: 1fr;
+        gap: 10px;
+        margin-top: 20px;
+    }
+
+    .grid-item {
+        margin-top: 50px;
+    }
+
+    .grid-item img {
+        width: 20px;
+        height: 20px;
+    }
+
+    .grid-item p {
+        font-size: 14px;
+    }
+
+    .grid-last img {
+        width: 40px;
+        height: 40px;
+    }
+
+    .scene4 img {
+        width: 80%;
+    }
+
+    .scene4 h2 {
+        font-size: 18px;
     }
 }

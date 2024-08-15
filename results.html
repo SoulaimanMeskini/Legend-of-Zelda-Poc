@@ -199,54 +199,71 @@
     </div>
 </div>
 
-    <script src="java/scriptsscene.js"></script>
-    <script>
-        function StartAnimation() {
-        const scene1 = document.getElementById("Scene1");
-        const filter = document.getElementById("filter");
-        const scene2 = document.getElementById("Scene2");
-        const scene3 = document.getElementById("Scene3");
-        const scene4 = document.getElementById("Scene4");
+ <!-- Audio -->
+ <audio id="backgroundMusic" src="assets/Introtheme.mp3" loop autoplay></audio>
 
-        // Display the filter
-        filter.style.display = 'block';
-        
-        // Start fading out the filter and Scene 1 after 3 seconds
-        filter.classList.add("AnimateShow");
-        scene1.classList.add("AnimateShow");
+ <script src="java/scriptsscene.js"></script>
+ <script>
+     document.addEventListener('DOMContentLoaded', () => {
+         // Retrieve and set the music preference on page load
+         const audio = document.getElementById('backgroundMusic');
+         const musicPreference = localStorage.getItem('MUSIC') === 'true';
+         audio.muted = !musicPreference; // Set audio mute status based on preference
 
-        // Start the scroll-up animation for Scene 2 after the fade-out is complete
+         // Initialize cursor
+         document.body.style.cursor = 'none'; // Hide default cursor
+
+         // Add click event listener to the start button
+         const startButton = document.getElementById('startButton');
+         if (startButton) {
+             startButton.addEventListener('click', StartAnimation);
+         }
+     });
+
+     function StartAnimation() {
+    const scene1 = document.getElementById("Scene1");
+    const filter = document.getElementById("filter");
+    const scene2 = document.getElementById("Scene2");
+    const scene3 = document.getElementById("Scene3");
+    const scene4 = document.getElementById("Scene4");
+
+    // Display the filter
+    filter.style.display = 'block';
+
+    // Start fading out the filter and Scene 1 after 3 seconds
+    filter.classList.add("AnimateShow");
+    scene1.classList.add("AnimateShow");
+
+    // Start the scroll-up animation for Scene 2 after the fade-out is complete
+    setTimeout(() => {
+        scene2.style.opacity = '1';
+        scene2.classList.add("scroll-up-to-middle");
+
+        // After 10 seconds, continue to scroll Scene 2 out of the view and start Scene 3
         setTimeout(() => {
-            scene2.style.opacity = '1';
-            scene2.classList.add("scroll-up-to-middle");
+            scene2.classList.add("scroll-out-of-screen");
 
-            // After 5 seconds, continue to scroll Scene 2 out of the view and start Scene 3
+            // Trigger Scene 3 scroll-up animation
             setTimeout(() => {
-                scene2.classList.add("scroll-out-of-screen");
+                scene3.style.opacity = '1';
+                scene3.classList.add("scroll-up");
 
-                // Trigger Scene 3 scroll-up animation
+                // Trigger Scene 4 scroll-up animation after Scene 3
                 setTimeout(() => {
-                    scene3.style.opacity = '1';
-                    scene3.classList.add("scroll-up");
+                    scene4.style.opacity = '1';
+                    scene4.classList.add("scroll-up");
 
-                    // Trigger Scene 4 scroll-up animation after Scene 3
+                    // Refresh the page after Scene 4 finishes its scroll-up animation
                     setTimeout(() => {
-                        scene4.style.opacity = '1';
-                        scene4.classList.add("scroll-up");
+                        window.location.href = "index.html";
+                    }, 10000); // Wait for Scene 4 to finish scrolling
 
-                        // Refresh the page after Scene 4 finishes its scroll-up animation
-                        setTimeout(() => {
-                            window.location.href = "index.html";
-                        }, 20000); // Wait for Scene 4 to finish scrolling and then refresh after 4 seconds
+                }, 20000); // Wait for Scene 3 to finish scrolling
 
-                    }, 26000); // Wait for Scene 3 to finish scrolling
+            }, 2000); // Slight delay to ensure smooth transition
 
-                }, 2000); // Slight delay to ensure smooth transition
-
-            }, 12000); // Wait for Scene 2 to scroll out before starting Scene 3
-        }, 10000);  // Wait for the fade-out to complete before starting the scroll-up
-    }
-    </script>    
+        }, 10000); // Wait for Scene 2 to scroll out before starting Scene 3
+    }, 10000);  // Wait for the fade-out to complete before starting the scroll-up
+}
+ </script>
 </body>
-
-</html>

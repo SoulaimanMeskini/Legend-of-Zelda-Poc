@@ -1,20 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+
 <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0 " />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="Copy of Zelda Nes Intro by Soulaiman Meskini." />
     <meta name="author" content="Soulaiman Meskini" />
     <title>Soulaiman Meskini - ZELDA INTRO</title>
     <link rel="icon" type="image/x-icon" href="assets/img/favicon.ico" />
     <link href="styles.css" rel="stylesheet" />
-
 </head>
-
 
 <body>
     <div id="loader"></div>
     <div class="pointer"></div>
 
-    <!-- Start Pagina -->
+    <!-- Start Page -->
     <div class="section-1">
         <div class="animatie">
             <p class="text-uppercase"><span class="typed-text"></span><span class="cursor">&nbsp;</span></p>
@@ -22,19 +23,23 @@
 
         <img class="oldMan" src="assets/old man.png" alt="Old Man">
         <div class="forum">
-            <form action="results.html" method="post" id="form" class="form">
+            <form id="form" class="form">
                 <div>
-                    <label for="username">TRAVELER</label>
+                    <label for="TRAVELER">TRAVELER</label>
                     <input maxlength="10" type="text" value="LINK" id="TRAVELER" name="TRAVELER" placeholder="Enter your name">
                 </div>
                 <div>
-                    <label for="username">PRINCESS</label>
-                    <input maxlength="10" type="text" value="ZELDA" id="ZELDA" name="ZELDA" placeholder="Enter the princes name"><br>
+                    <label for="ZELDA">PRINCESS</label>
+                    <input maxlength="10" type="text" value="ZELDA" id="ZELDA" name="ZELDA" placeholder="Enter the princess's name"><br>
                 </div>
-
                 <div>
-                    <label for="username">PRINCE DARKNESS</label>
-                    <input maxlength="10" type="text" value="GANNON" id="GANNON" name="GANNON" placeholder="Enter the prince darkness name">
+                    <label for="GANNON">PRINCE DARKNESS</label>
+                    <input maxlength="10" type="text" value="GANNON" id="GANNON" name="GANNON" placeholder="Enter the prince of darkness's name">
+                </div>
+                <br>
+                <div>
+                    <label for="music">Hear Music:</label>
+                    <input type="checkbox" id="music" name="music" checked>
                 </div>
                 <br>
                 <button type="submit">START JOURNEY</button>
@@ -42,33 +47,50 @@
             </form>
             <br>
 
-            <script>
-                const form = document.querySelector("#form");
-
-                form.addEventListener("submit", function(event) {
-                    // stop form submission
-                    event.preventDefault();
-
-                    const TRAVELER = document.getElementById("TRAVELER").value;
-                    const ZELDA = document.getElementById("ZELDA").value;
-                    const GANNON = document.getElementById("GANNON").value;
-
-                    console.log(TRAVELER + " " + ZELDA + " " + GANNON);
-
-                    localStorage.setItem("TRAVELER", TRAVELER);
-                    localStorage.setItem("ZELDA", ZELDA);
-                    localStorage.setItem("GANNON", GANNON);
-
-                    window.location.href = '/results.html';
-                });
-            </script>
-
             <a href="https://www.youtube.com/watch?v=uyMKWJ5e1kg" target="_blank">Watch the original Intro on Youtube</a>
         </div>
         <p class="bottom-left">*THIS WEBSITE IS MEANT FOR EDUCATIONAL PURPOSES*</p>
     </div>
 
-    <!-- Java-->
+    <!-- JavaScript -->
     <script src="java/scripts.js"></script>
     <script src="java/Textanimation.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Retrieve and set the music preference on page load
+            const musicCheckbox = document.getElementById("music");
+            const musicPreference = localStorage.getItem('MUSIC') === 'true';
+            musicCheckbox.checked = musicPreference; // Set checkbox state based on preference
+
+            // Add event listener to the form submit button to store user preferences
+            const form = document.querySelector("#form");
+            form.addEventListener("submit", function(event) {
+                // Stop form submission
+                event.preventDefault();
+
+                const TRAVELER = document.getElementById("TRAVELER").value;
+                const ZELDA = document.getElementById("ZELDA").value;
+                const GANNON = document.getElementById("GANNON").value;
+                const music = document.getElementById("music").checked;
+
+                console.log(TRAVELER + " " + ZELDA + " " + GANNON + " Music: " + music);
+
+                // Store the values in localStorage
+                localStorage.setItem("TRAVELER", TRAVELER);
+                localStorage.setItem("ZELDA", ZELDA);
+                localStorage.setItem("GANNON", GANNON);
+                localStorage.setItem("MUSIC", music); // Store the checkbox state in localStorage
+
+                // Redirect to results.html
+                window.location.href = "results.html";
+            });
+
+            // Add event listener to the reset button
+            document.querySelector('button[type="reset"]').addEventListener('click', () => {
+                localStorage.removeItem("MUSIC"); // Remove the music preference when reset
+            });
+        });
+    </script>
 </body>
+
+</html>
