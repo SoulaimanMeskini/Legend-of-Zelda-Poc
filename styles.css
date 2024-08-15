@@ -108,7 +108,7 @@ input {
 
 /* Styling for the checkbox to make it larger */
 input[type="checkbox"] {
-    transform: scale(2); /* Increase size by 1.5 times */
+    transform: scale(1.5); /* Increase size by 1.5 times */
     margin-right: 10px; /* Space between checkbox and label */
     margin-top: 15px;
 }
