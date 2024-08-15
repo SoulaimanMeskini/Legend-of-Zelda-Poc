@@ -397,7 +397,7 @@ button {
 
 @media only screen and (max-width: 768px) {
     .scene4.scroll-up {
-        animation: scrollUpScene4Phone 15s cubic-bezier(0.5, 1, 0.5, 1) forwards;
+        animation: scrollUpScene4Phone 20s cubic-bezier(0.5, 1, 0.5, 1) forwards;
     }
 
 /* Phone-specific animation for Scene 4 */
