@@ -16,10 +16,13 @@
     list-style: none;
     text-decoration: none;
     font-family: pixel;
+    overflow-x: hidden;
+    overflow-y: hidden;
 }
 
 body {
     overflow-x: hidden;
+    overflow-y: hidden;
     display: flex;
 }
 
