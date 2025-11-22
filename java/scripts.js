@@ -28,7 +28,7 @@ function loadNow(opacity) {
 
 function displayContent() {
     loader.style.display = 'none';
-    document.getElementsById('content').style.display = 'block';
+    // Content is already displayed, no need to show a content element
 }
 
 document.addEventListener("DOMContentLoaded", function() {

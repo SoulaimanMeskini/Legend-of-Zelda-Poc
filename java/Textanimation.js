@@ -2,7 +2,7 @@ const typedTextSpan = document.querySelector(".typed-text");
 const cursorSpan = document.querySelector(".cursor");
 
 const textArray = ["Welcome Traveler to the kingdom of Hyrule. We need your help to save the princess but first traveler what's your name?"];
-const typingDelay = 150;
+const typingDelay = 70;
 const erasingDelay = 50;
 const newTextDelay = 1200;
 let textArrayIndex = 0;

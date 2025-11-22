@@ -21,7 +21,11 @@
             <p class="text-uppercase"><span class="typed-text"></span><span class="cursor">&nbsp;</span></p>
         </div>
 
-        <img class="oldMan" src="assets/old man.png" alt="Old Man">
+        <div class="oldMan-container">
+            <img class="fire fire-left" src="assets/fire.gif" alt="Fire" style="display: none;">
+            <img class="oldMan" src="assets/old man.png" alt="Old Man">
+            <img class="fire fire-right" src="assets/fire.gif" alt="Fire" style="display: none;">
+        </div>
         <div class="forum">
             <form id="form" class="form">
                 <div>
@@ -46,11 +50,18 @@
                 <button type="reset">RESET NAMES</button>
             </form>
             <br>
-
+        </div>
+        <div class="bottom-left">
+            <p>*THIS WEBSITE IS MEANT FOR EDUCATIONAL PURPOSES*</p>
             <a href="https://www.youtube.com/watch?v=uyMKWJ5e1kg" target="_blank">Watch the original Intro on Youtube</a>
         </div>
-        <p class="bottom-left">*THIS WEBSITE IS MEANT FOR EDUCATIONAL PURPOSES*</p>
     </div>
+    
+    <!-- Footer -->
+    <footer class="bottom-right">
+        <p>Made by Soulaiman</p>
+        <a href="https://soulaimanmeskini.com" target="_blank">soulaimanmeskini.com</a>
+    </footer>
 
     <!-- JavaScript -->
     <script src="java/scripts.js"></script>
@@ -59,8 +70,19 @@
         document.addEventListener('DOMContentLoaded', () => {
             // Retrieve and set the music preference on page load
             const musicCheckbox = document.getElementById("music");
-            const musicPreference = localStorage.getItem('MUSIC') === 'true';
-            musicCheckbox.checked = musicPreference; // Set checkbox state based on preference
+            const musicPreference = localStorage.getItem('MUSIC');
+            // If no preference exists, default to checked (true)
+            if (musicPreference === null) {
+                musicCheckbox.checked = true;
+                localStorage.setItem('MUSIC', 'true');
+            } else {
+                musicCheckbox.checked = musicPreference === 'true';
+            }
+            
+            // Update music preference when checkbox changes
+            musicCheckbox.addEventListener('change', function() {
+                localStorage.setItem('MUSIC', this.checked ? 'true' : 'false');
+            });
 
             // Add event listener to the form submit button to store user preferences
             const form = document.querySelector("#form");
@@ -89,6 +111,53 @@
             document.querySelector('button[type="reset"]').addEventListener('click', () => {
                 localStorage.removeItem("MUSIC"); // Remove the music preference when reset
             });
+
+            // Add click event listener to the old man
+            const oldMan = document.querySelector('.oldMan');
+            const fireLeft = document.querySelector('.fire-left');
+            const fireRight = document.querySelector('.fire-right');
+            const typedTextSpan = document.querySelector('.typed-text');
+            const cursorSpan = document.querySelector('.cursor');
+            let hasClicked = false;
+
+            if (oldMan) {
+                oldMan.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    if (!hasClicked) {
+                        hasClicked = true;
+                        
+                        // Show fire images
+                        if (fireLeft) fireLeft.style.display = 'block';
+                        if (fireRight) fireRight.style.display = 'block';
+                        
+                        // Stop the original typing animation by clearing the interval
+                        // Clear existing text and type new message
+                        if (typedTextSpan) {
+                            typedTextSpan.textContent = '';
+                        }
+                        if (cursorSpan) {
+                            cursorSpan.classList.add("typing");
+                        }
+                        
+                        const newText = "It's dangerous to go alone! Take this.";
+                        let charIndex = 0;
+                        
+                        function typeNewText() {
+                            if (charIndex < newText.length && typedTextSpan) {
+                                typedTextSpan.textContent += newText.charAt(charIndex);
+                                charIndex++;
+                                setTimeout(typeNewText, 70);
+                            } else {
+                                if (cursorSpan) {
+                                    cursorSpan.classList.remove("typing");
+                                }
+                            }
+                        }
+                        
+                        typeNewText();
+                    }
+                });
+            }
         });
     </script>
 </body>

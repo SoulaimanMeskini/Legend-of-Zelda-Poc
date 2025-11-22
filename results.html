@@ -23,7 +23,9 @@
             <div id="filter" class="filter"></div>
         </div>
     </div>
-<!-- Scene 2 -->
+<!-- Scroll Container for Scenes 2-4 -->
+<div id="scrollContainer" class="scroll-container">
+    <!-- Scene 2 -->
     <div id="Scene2" class="scene2">
         <h3 id="ZELDA2" style="color:red"></h3>
         <h2>
@@ -190,12 +192,13 @@
             <img src="assets/treasures/triforce.png" alt="Triforce">
             <p>Triforce</p>
         </div>
-    </div>
- <!-- Scene 4 -->
-<div id="Scene4" class="scene4">
-    <div class="centered-content">
-        <img src="assets/linkbord.png" alt="Link Board">
-        <h2 id="thankYouText">Thank you, traveler. You will return to your home.</h2>
+        <!-- Scene 4 inside Scene 3 -->
+        <div id="Scene4" class="scene4">
+            <div class="centered-content">
+                <img src="assets/linkbord.png" alt="Link Board">
+                <h2 id="thankYouText">Thank you, traveler.<br>You will return<br>to your home.</h2>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -205,27 +208,48 @@
  <script src="java/scriptsscene.js"></script>
  <script>
      document.addEventListener('DOMContentLoaded', () => {
-         // Retrieve and set the music preference on page load
-         const audio = document.getElementById('backgroundMusic');
-         const musicPreference = localStorage.getItem('MUSIC') === 'true';
-         audio.muted = !musicPreference; // Set audio mute status based on preference
+        // Retrieve and set the music preference on page load
+        const audio = document.getElementById('backgroundMusic');
+        const musicPreference = localStorage.getItem('MUSIC');
+        
+        // Default to true if no preference exists
+        const shouldPlayMusic = musicPreference === null ? true : musicPreference === 'true';
+        
+        // Set audio mute status based on preference
+        audio.muted = !shouldPlayMusic;
+        
+        // Try to play audio (autoplay might be blocked by browser)
+        if (shouldPlayMusic) {
+            audio.play().catch(error => {
+                console.log('Autoplay blocked:', error);
+                // Audio will play when user interacts with the page
+            });
+        }
 
-         // Initialize cursor
-         document.body.style.cursor = 'none'; // Hide default cursor
+        // Initialize cursor
+        document.body.style.cursor = 'none'; // Hide default cursor
 
-         // Add click event listener to the start button
-         const startButton = document.getElementById('startButton');
-         if (startButton) {
-             startButton.addEventListener('click', StartAnimation);
-         }
-     });
+        // Add click event listener to the start button
+        const startButton = document.getElementById('startButton');
+        if (startButton) {
+            startButton.addEventListener('click', StartAnimation);
+        }
+        
+        // Play audio when user clicks anywhere (to bypass autoplay restrictions)
+        document.addEventListener('click', function playAudioOnce() {
+            if (shouldPlayMusic && audio.paused) {
+                audio.play().catch(error => {
+                    console.log('Audio play failed:', error);
+                });
+            }
+            document.removeEventListener('click', playAudioOnce);
+        }, { once: true });
+    });
 
      function StartAnimation() {
     const scene1 = document.getElementById("Scene1");
     const filter = document.getElementById("filter");
-    const scene2 = document.getElementById("Scene2");
-    const scene3 = document.getElementById("Scene3");
-    const scene4 = document.getElementById("Scene4");
+    const scrollContainer = document.getElementById("scrollContainer");
 
     // Display the filter
     filter.style.display = 'block';
@@ -234,36 +258,21 @@
     filter.classList.add("AnimateShow");
     scene1.classList.add("AnimateShow");
 
-    // Start the scroll-up animation for Scene 2 after the fade-out is complete
+    // Wait for fade-out to complete (3s animation), then hide Scene 1 completely
     setTimeout(() => {
-        scene2.style.opacity = '1';
-        scene2.classList.add("scroll-up-to-middle");
+        scene1.style.display = 'none';
+        scene1.style.visibility = 'hidden';
+        
+        // Start the continuous scroll animation
+        scrollContainer.classList.add("scrolling");
 
-        // After 10 seconds, continue to scroll Scene 2 out of the view and start Scene 3
+        // Redirect to home page after Scene 4 has been visible for a few seconds
+        // Scene 4 appears at 50s (83.33% of 60s), give it 5 seconds to be visible, then redirect
         setTimeout(() => {
-            scene2.classList.add("scroll-out-of-screen");
+            window.location.href = "index.html";
+        }, 58000); // 3s fade + 55s animation = 58s total (reduced by 5s)
 
-            // Trigger Scene 3 scroll-up animation
-            setTimeout(() => {
-                scene3.style.opacity = '1';
-                scene3.classList.add("scroll-up");
-
-                // Trigger Scene 4 scroll-up animation after Scene 3
-                setTimeout(() => {
-                    scene4.style.opacity = '1';
-                    scene4.classList.add("scroll-up");
-
-                    // Refresh the page after Scene 4 finishes its scroll-up animation
-                    setTimeout(() => {
-                        window.location.href = "index.html";
-                    }, 10000); // Wait for Scene 4 to finish scrolling
-
-                }, 20000); // Wait for Scene 3 to finish scrolling
-
-            }, 2000); // Slight delay to ensure smooth transition
-
-        }, 10000); // Wait for Scene 2 to scroll out before starting Scene 3
-    }, 10000);  // Wait for the fade-out to complete before starting the scroll-up
+    }, 3000);  // Wait for the fade-out to complete (3s animation)
 }
  </script>
 </body>
